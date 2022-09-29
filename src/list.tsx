@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import { Button } from '@chakra-ui/react'
 
 type listPeople = {
   birth_year: string;
@@ -24,33 +25,47 @@ const PeopleList = () => {
 
   const baseURL = "https://swapi.dev/api/people";
 
-  useEffect(() => {
+  const getData =() =>{
     try {
       axios.get(`${baseURL}`).then((response) => {
-        if (response.status === 200) {
+        if(response.status === 200){
           setList(response.data.results);
           console.log("checking a response", response);
-        }
+        } 
+       
       });
     } catch (error) {
       console.log("error", error);
     }
-  }, []);
+  }
+  // useEffect(() => {
+  //   try {
+  //     axios.get(`${baseURL}`).then((response) => {
+  //       if(response.status === 200){
+  //         setList(response.data.results);
+  //         console.log("checking a response", response);
+  //       } 
+       
+  //     });
+  //   } catch (error) {
+  //     console.log("error", error);
+  //   }
+  // }, []);
 
-
-
+  
   return (
     <div>
-      <h1 style={{ textAlign: "center" }}>People List:</h1>
+      <h1 style={{ textAlign: "center" }} >People List:</h1>
+      <Button onClick={getData} colorScheme ='blue'>Button</Button>
+      
 
-     
       {list?.map((people: listPeople) => {
         console.log("checking birth year", people);
         return (
-          <div key={people.birth_year}>
-            <p>birth year:{people.eye_color}</p>-<p>height:{people.gender}</p>-
+          <div key={people.birth_year} style={{ textAlign: "center" }}>
+            <p>birth year:{people.eye_color} </p>-<p>height:{people.gender}</p>-
             <p>height:{people.hair_color}</p>-<p>hair color:{people.height}</p>-
-            <p>gender:{people.mass}</p>
+            <p>gender:{people.mass}</p>t
             <p>name:{people.name}</p>-<p>skin color:{people.skin_color}</p>-
           </div>
         );
